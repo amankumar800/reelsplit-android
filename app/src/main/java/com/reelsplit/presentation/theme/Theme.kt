@@ -16,65 +16,143 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-// Brand Colors
-private val Primary = Color(0xFF6366F1)
-private val PrimaryVariant = Color(0xFF4F46E5)
-private val Secondary = Color(0xFFEC4899)
-private val SecondaryVariant = Color(0xFFDB2777)
-
-// Light Theme Colors
-private val LightBackground = Color(0xFFFFFFFF)
-private val LightSurface = Color(0xFFF8FAFC)
-private val LightOnBackground = Color(0xFF0F172A)
-private val LightOnSurface = Color(0xFF1E293B)
-
-// Dark Theme Colors
-private val DarkBackground = Color(0xFF0F172A)
-private val DarkSurface = Color(0xFF1E293B)
-private val DarkOnBackground = Color(0xFFF8FAFC)
-private val DarkOnSurface = Color(0xFFE2E8F0)
+// =============================================================================
+// Light Color Scheme
+// =============================================================================
 
 private val LightColorScheme = lightColorScheme(
+    // Primary colors
     primary = Primary,
     onPrimary = Color.White,
-    primaryContainer = Primary.copy(alpha = 0.12f),
+    primaryContainer = Color(0xFFE0E7FF), // Proper opaque indigo container
     onPrimaryContainer = PrimaryVariant,
+    inversePrimary = PrimaryLight,
+    
+    // Secondary colors
     secondary = Secondary,
     onSecondary = Color.White,
-    secondaryContainer = Secondary.copy(alpha = 0.12f),
+    secondaryContainer = Color(0xFFFCE7F3), // Proper opaque pink container
     onSecondaryContainer = SecondaryVariant,
+    
+    // Tertiary colors
+    tertiary = Tertiary,
+    onTertiary = Color.White,
+    tertiaryContainer = Color(0xFFFFEDD5), // Proper opaque orange container
+    onTertiaryContainer = TertiaryVariant,
+    
+    // Background and surface
     background = LightBackground,
     onBackground = LightOnBackground,
     surface = LightSurface,
     onSurface = LightOnSurface,
-    error = Color(0xFFEF4444),
-    onError = Color.White,
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightOnSurfaceVariant,
+    surfaceTint = Primary,
+    inverseSurface = DarkSurface,
+    inverseOnSurface = DarkOnSurface,
+    
+    // Surface containers (Material 3 1.2+)
+    surfaceContainerLowest = Color.White,
+    surfaceContainerLow = LightSurfaceContainerLow,
+    surfaceContainer = LightSurfaceContainer,
+    surfaceContainerHigh = LightSurfaceContainerHigh,
+    surfaceContainerHighest = LightSurfaceContainerHighest,
+    
+    // Error colors
+    error = ErrorLight,
+    onError = OnError,
+    errorContainer = ErrorContainerLight,
+    onErrorContainer = OnErrorContainerLight,
+    
+    // Outline colors
+    outline = LightOutline,
+    outlineVariant = LightOutlineVariant,
+    
+    // Scrim
+    scrim = Color.Black.copy(alpha = 0.32f)
 )
 
+// =============================================================================
+// Dark Color Scheme
+// =============================================================================
+
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary,
-    onPrimary = Color.White,
-    primaryContainer = PrimaryVariant,
-    onPrimaryContainer = Color.White,
-    secondary = Secondary,
-    onSecondary = Color.White,
-    secondaryContainer = SecondaryVariant,
-    onSecondaryContainer = Color.White,
+    // Primary colors
+    primary = PrimaryLight,
+    onPrimary = PrimaryVariant,
+    primaryContainer = Color(0xFF312E81), // Deep indigo container for dark mode
+    onPrimaryContainer = PrimaryLight,
+    inversePrimary = Primary,
+    
+    // Secondary colors
+    secondary = SecondaryLight,
+    onSecondary = SecondaryVariant,
+    secondaryContainer = Color(0xFF831843), // Deep pink container for dark mode
+    onSecondaryContainer = SecondaryLight,
+    
+    // Tertiary colors
+    tertiary = TertiaryLight,
+    onTertiary = TertiaryVariant,
+    tertiaryContainer = Color(0xFF7C2D12), // Deep orange container for dark mode
+    onTertiaryContainer = TertiaryLight,
+    
+    // Background and surface
     background = DarkBackground,
     onBackground = DarkOnBackground,
     surface = DarkSurface,
     onSurface = DarkOnSurface,
-    error = Color(0xFFFF6B6B),
-    onError = Color.White,
+    surfaceVariant = DarkSurfaceVariant,
+    onSurfaceVariant = DarkOnSurfaceVariant,
+    surfaceTint = PrimaryLight,
+    inverseSurface = LightSurface,
+    inverseOnSurface = LightOnSurface,
+    
+    // Surface containers (Material 3 1.2+)
+    surfaceContainerLowest = DarkBackground,
+    surfaceContainerLow = DarkSurfaceContainerLow,
+    surfaceContainer = DarkSurfaceContainer,
+    surfaceContainerHigh = DarkSurfaceContainerHigh,
+    surfaceContainerHighest = DarkSurfaceContainerHighest,
+    
+    // Error colors
+    error = ErrorDark,
+    onError = OnError,
+    errorContainer = ErrorContainerDark,
+    onErrorContainer = OnErrorContainerDark,
+    
+    // Outline colors
+    outline = DarkOutline,
+    outlineVariant = DarkOutlineVariant,
+    
+    // Scrim
+    scrim = Color.Black.copy(alpha = 0.5f)
 )
 
+// =============================================================================
+// ReelSplit Theme Composable
+// =============================================================================
+
+/**
+ * Main theme composable for the ReelSplit app.
+ * 
+ * Supports:
+ * - Light and dark themes based on system settings
+ * - Dynamic colors on Android 12+ (Material You)
+ * - Edge-to-edge display with proper status bar handling
+ * 
+ * @param darkTheme Whether to use dark theme. Defaults to system setting.
+ * @param dynamicColor Whether to use dynamic colors (Android 12+). Defaults to false
+ *                     to preserve brand colors. Set to true to use Material You.
+ * @param content The composable content to display within the theme.
+ */
 @Composable
 fun ReelSplitTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Disabled by default to use brand colors
+    dynamicColor: Boolean = false, // Disabled by default to preserve brand identity
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
+        // Use dynamic colors on Android 12+ if enabled
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -83,12 +161,20 @@ fun ReelSplitTheme(
         else -> LightColorScheme
     }
 
+    // Set up edge-to-edge display
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            val window = (view.context as Activity).window
+            val activity = view.context as? Activity ?: return@SideEffect
+            val window = activity.window
+            
+            // Make status bar and navigation bar transparent
+            @Suppress("DEPRECATION")
             window.statusBarColor = Color.Transparent.toArgb()
+            @Suppress("DEPRECATION")
             window.navigationBarColor = Color.Transparent.toArgb()
+            
+            // Set appearance for status bar icons based on theme
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = !darkTheme
                 isAppearanceLightNavigationBars = !darkTheme
@@ -99,6 +185,7 @@ fun ReelSplitTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }
