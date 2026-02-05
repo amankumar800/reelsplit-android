@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ReelSplit</string>
+    
+    <!-- Share menu -->
+    <string name="share_with_reelsplit">Split with ReelSplit</string>
+    
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="close">Close</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_network">No internet connection</string>
+    <string name="error_download_failed">Failed to download video</string>
+    <string name="error_split_failed">Failed to split video</string>
+    <string name="error_invalid_url">Invalid Instagram URL</string>
+    
+    <!-- Notifications -->
+    <string name="notification_channel_downloads">Downloads</string>
+    <string name="notification_channel_processing">Video Processing</string>
+    <string name="notification_downloading">Downloading video…</string>
+    <string name="notification_processing">Processing video…</string>
+    <string name="notification_complete">Video ready to share</string>
+    
+    <!-- Download Worker Notifications -->
+    <string name="notification_download_title">Downloading Video</string>
+    <string name="notification_download_progress">Downloading… %1$d%%</string>
+    <string name="notification_download_starting">Starting download…</string>
+</resources>
