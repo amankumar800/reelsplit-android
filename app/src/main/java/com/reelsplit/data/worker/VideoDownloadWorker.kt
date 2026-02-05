@@ -111,8 +111,13 @@ class VideoDownloadWorker @AssistedInject constructor(
         return result.fold(
             success = { filePath ->
                 Timber.d("VideoDownloadWorker: Download completed successfully: $filePath")
+                // Get file size for the output data
+                val fileSize = java.io.File(filePath).length()
                 Result.success(
-                    workDataOf(KEY_FILE_PATH to filePath)
+                    workDataOf(
+                        KEY_FILE_PATH to filePath,
+                        KEY_FILE_SIZE to fileSize
+                    )
                 )
             },
             failure = { error ->
@@ -251,6 +256,9 @@ class VideoDownloadWorker @AssistedInject constructor(
         
         /** Key for the downloaded file path in output data */
         const val KEY_FILE_PATH = "file_path"
+        
+        /** Key for the downloaded file size in bytes in output data */
+        const val KEY_FILE_SIZE = "file_size"
         
         /** Key for error message in output data (on failure) */
         const val KEY_ERROR_MESSAGE = "error_message"
