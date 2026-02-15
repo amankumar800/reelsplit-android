@@ -6,6 +6,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.core.content.getSystemService
 import androidx.work.WorkManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,7 @@ import javax.inject.Singleton
  * - WorkManager instance for background tasks
  * - System services (NotificationManager, ConnectivityManager)
  * - ContentResolver for MediaStore operations
+ * - FirebaseAnalytics for event tracking
  * - Coroutine Dispatchers for testability
  * - Application-scoped CoroutineScope
  */
@@ -85,6 +87,20 @@ object AppModule {
         @ApplicationContext context: Context
     ): ContentResolver {
         return context.contentResolver
+    }
+
+    // ==================== Firebase ====================
+
+    /**
+     * Provides the FirebaseAnalytics instance for event tracking.
+     * Used by [com.reelsplit.core.analytics.AnalyticsManager].
+     */
+    @Provides
+    @Singleton
+    fun provideFirebaseAnalytics(
+        @ApplicationContext context: Context
+    ): FirebaseAnalytics {
+        return FirebaseAnalytics.getInstance(context)
     }
 
     // ==================== Coroutine Dispatchers ====================
