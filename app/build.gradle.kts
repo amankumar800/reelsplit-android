@@ -123,6 +123,7 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+    implementation(libs.coroutines.play.services)
 
     // Lifecycle
     implementation(libs.bundles.lifecycle)
@@ -188,6 +189,10 @@ dependencies {
 
     // Error Tracking
     implementation(libs.sentry.android)
+
+    // Google Play In-App Review
+    implementation(libs.play.review)
+    implementation(libs.play.review.ktx)
 
     // Firebase
     implementation(platform(libs.firebase.bom))

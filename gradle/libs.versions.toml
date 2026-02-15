@@ -55,6 +55,7 @@ timber = "5.0.1"
 kotlinResult = "1.1.18"
 leakcanary = "2.13"
 sentry = "7.3.0"
+playReview = "2.0.1"
 
 # Firebase
 firebaseBom = "32.7.2"
@@ -82,6 +83,7 @@ splashscreen = { group = "androidx.core", name = "core-splashscreen", version.re
 # Coroutines
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines" }
 
 # Lifecycle
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -162,11 +164,13 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 kotlin-result = { group = "com.michael-bull.kotlin-result", name = "kotlin-result", version.ref = "kotlinResult" }
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 sentry-android = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
+play-review = { group = "com.google.android.play", name = "review", version.ref = "playReview" }
+play-review-ktx = { group = "com.google.android.play", name = "review-ktx", version.ref = "playReview" }
 
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
