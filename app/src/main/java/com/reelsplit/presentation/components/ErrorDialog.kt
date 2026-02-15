@@ -1,11 +1,7 @@
 package com.reelsplit.presentation.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -19,11 +15,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,16 +34,17 @@ import com.reelsplit.presentation.theme.ReelSplitTheme
  * - Customizable title and message
  * - Optional retry button with callback
  * - Dismiss button for closing the dialog
- * - Accessibility support with semantics
  * - Follows Material 3 design guidelines
  *
  * @param title Title of the error dialog
  * @param message Detailed error message to display
- * @param onDismiss Callback invoked when the dialog is dismissed
- * @param onRetry Optional callback for retry action. If null, retry button is hidden.
+ * @param onDismiss Callback invoked when the dialog is dismissed (via dismiss button
+ *   or back press / scrim tap)
+ * @param modifier Modifier for the composable
+ * @param onRetry Optional callback for retry action. If null, the retry button is hidden.
  * @param dismissButtonText Text for the dismiss button
  * @param retryButtonText Text for the retry button
- * @param icon Icon to display in the dialog
+ * @param icon Icon to display in the dialog header
  */
 @Composable
 fun ErrorDialog(
@@ -65,13 +59,11 @@ fun ErrorDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        modifier = modifier.semantics {
-            contentDescription = "Error dialog: $title"
-        },
+        modifier = modifier,
         icon = {
             Icon(
                 imageVector = icon,
-                contentDescription = null, // Decorative, title provides context
+                contentDescription = null, // Decorative; title conveys semantics
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.error
             )
@@ -80,8 +72,7 @@ fun ErrorDialog(
             Text(
                 text = title,
                 style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurface
+                textAlign = TextAlign.Center
             )
         },
         text = {
@@ -89,14 +80,16 @@ fun ErrorDialog(
                 text = message,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.fillMaxWidth()
             )
         },
         confirmButton = {
             if (onRetry != null) {
                 Button(
-                    onClick = onRetry,
+                    onClick = {
+                        onDismiss()
+                        onRetry()
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     )
@@ -104,20 +97,15 @@ fun ErrorDialog(
                     Icon(
                         imageVector = Icons.Default.Refresh,
                         contentDescription = null,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
                     Text(text = retryButtonText)
                 }
             }
         },
         dismissButton = {
-            OutlinedButton(
-                onClick = onDismiss,
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
+            OutlinedButton(onClick = onDismiss) {
                 Text(text = dismissButtonText)
             }
         },
@@ -130,13 +118,14 @@ fun ErrorDialog(
 }
 
 /**
- * A simplified error dialog without retry option.
+ * A simplified error dialog without a retry option.
  *
  * Use this for non-recoverable errors where retry is not applicable.
  *
  * @param title Title of the error dialog
  * @param message Detailed error message to display
  * @param onDismiss Callback invoked when the dialog is dismissed
+ * @param modifier Modifier for the composable
  * @param dismissButtonText Text for the dismiss button
  */
 @Composable
@@ -178,22 +167,9 @@ private fun ErrorDialogWithRetryPreview() {
 @Composable
 private fun ErrorDialogWithoutRetryPreview() {
     ReelSplitTheme {
-        ErrorDialog(
+        SimpleErrorDialog(
             title = "Video Not Found",
             message = "The requested video could not be found. It may have been deleted or is no longer available.",
-            onDismiss = {},
-            onRetry = null
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SimpleErrorDialogPreview() {
-    ReelSplitTheme {
-        SimpleErrorDialog(
-            title = "Invalid URL",
-            message = "The provided URL is not a valid Instagram Reel link.",
             onDismiss = {}
         )
     }
@@ -212,15 +188,14 @@ private fun ErrorDialogDarkThemePreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Long Message")
+@Preview(showBackground = true, name = "Dark No Retry")
 @Composable
-private fun ErrorDialogLongMessagePreview() {
-    ReelSplitTheme {
-        ErrorDialog(
+private fun SimpleErrorDialogDarkThemePreview() {
+    ReelSplitTheme(darkTheme = true) {
+        SimpleErrorDialog(
             title = "WhatsApp Not Installed",
-            message = "WhatsApp is required to share videos to your Status. Please install WhatsApp from the Play Store and try again. Make sure you're logged in to your account before attempting to share.",
+            message = "WhatsApp is required to share videos to your Status. Please install WhatsApp from the Play Store and try again.",
             onDismiss = {},
-            onRetry = null,
             dismissButtonText = "Got it"
         )
     }
