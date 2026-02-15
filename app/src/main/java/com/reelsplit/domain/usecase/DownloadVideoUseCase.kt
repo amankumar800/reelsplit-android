@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 /**
  * Use case for downloading videos using WorkManager.
@@ -54,7 +53,7 @@ import javax.inject.Inject
  *     }
  * ```
  */
-class DownloadVideoUseCase @Inject constructor(
+class DownloadVideoUseCase(
     private val workManager: WorkManager
 ) {
     /**

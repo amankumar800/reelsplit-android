@@ -4,7 +4,6 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
 import com.reelsplit.domain.model.AppError
 import com.reelsplit.domain.repository.VideoRepository
-import javax.inject.Inject
 
 /**
  * Use case for extracting a direct video URL from an Instagram reel URL.
@@ -22,7 +21,7 @@ import javax.inject.Inject
  * )
  * ```
  */
-class ExtractVideoUrlUseCase @Inject constructor(
+class ExtractVideoUrlUseCase(
     private val videoRepository: VideoRepository
 ) {
     /**

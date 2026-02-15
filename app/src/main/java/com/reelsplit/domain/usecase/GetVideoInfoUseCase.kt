@@ -4,7 +4,6 @@ import com.reelsplit.domain.model.Video
 import com.reelsplit.domain.repository.VideoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import javax.inject.Inject
 
 /**
  * Use case for retrieving video information.
@@ -22,7 +21,7 @@ import javax.inject.Inject
  *     }
  * ```
  */
-class GetVideoInfoUseCase @Inject constructor(
+class GetVideoInfoUseCase(
     private val videoRepository: VideoRepository
 ) {
     /**

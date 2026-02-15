@@ -8,7 +8,6 @@ import com.reelsplit.domain.model.AppError
 import com.reelsplit.domain.model.VideoSegment
 import com.reelsplit.domain.repository.VideoRepository
 import java.io.File
-import javax.inject.Inject
 
 /**
  * Use case for splitting a video into WhatsApp Status-compatible segments.
@@ -33,7 +32,7 @@ import javax.inject.Inject
  * )
  * ```
  */
-class SplitVideoUseCase @Inject constructor(
+class SplitVideoUseCase(
     private val videoRepository: VideoRepository
 ) {
     /**

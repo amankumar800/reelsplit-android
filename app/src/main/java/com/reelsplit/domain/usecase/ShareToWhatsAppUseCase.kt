@@ -8,7 +8,6 @@ import com.github.michaelbull.result.andThen
 import com.reelsplit.domain.model.AppError
 import com.reelsplit.domain.sharing.WhatsAppSharerContract
 import java.io.File
-import javax.inject.Inject
 
 /**
  * Use case for sharing a video segment to WhatsApp Status.
@@ -49,7 +48,7 @@ import javax.inject.Inject
  *
  * @property whatsAppSharer The contract implementation for WhatsApp operations
  */
-class ShareToWhatsAppUseCase @Inject constructor(
+class ShareToWhatsAppUseCase(
     private val whatsAppSharer: WhatsAppSharerContract
 ) {
     /**
