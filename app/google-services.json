@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "378340670518",
+    "project_id": "reelsplit-1500a",
+    "storage_bucket": "reelsplit-1500a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378340670518:android:84ed6bf98901b9e2d3ac97",
+        "android_client_info": {
+          "package_name": "com.reelsplit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo1DRZeur7f_vMd1AH2da6HPjRxRyHDTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378340670518:android:76493e05cbfd779bd3ac97",
+        "android_client_info": {
+          "package_name": "com.reelsplit.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo1DRZeur7f_vMd1AH2da6HPjRxRyHDTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

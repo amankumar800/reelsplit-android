@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive icon foreground for ReelSplit.
+    A stylized scissors/split icon representing video splitting.
+    Uses the primary brand color (#6366F1 indigo).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Film strip / reel shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,30h40c2.2,0 4,1.8 4,4v40c0,2.2 -1.8,4 -4,4H34c-2.2,0 -4,-1.8 -4,-4V34c0,-2.2 1.8,-4 4,-4z" />
+    <!-- Play triangle -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M46,42l20,12l-20,12z" />
+    <!-- Split line (vertical dashed) -->
+    <path
+        android:fillColor="#EC4899"
+        android:pathData="M53,30h2v8h-2zM53,42h2v8h-2zM53,54h2v8h-2zM53,66h2v8h-2z" />
+</vector>
