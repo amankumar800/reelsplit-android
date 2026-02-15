@@ -1,9 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ReelSplit</string>
-    
+
     <!-- Share menu -->
     <string name="share_with_reelsplit">Split with ReelSplit</string>
-    
+
+    <!-- Processing -->
+    <string name="processing_title">Processing Video</string>
+    <string name="downloading">Downloading…</string>
+    <string name="splitting">Splitting into parts…</string>
+    <string name="download_cancelled">Download cancelled</string>
+
+    <!-- Processing step labels -->
+    <string name="processing_step_extract">Extract</string>
+    <string name="processing_step_download">Download</string>
+    <string name="processing_step_split">Split</string>
+    <string name="processing_step_done">Done</string>
+
+    <!-- Sharing -->
+    <string name="share_to_status">Share to Status</string>
+    <string name="share_to_chat">Share to Chat</string>
+    <string name="share_all_to_status">Share All to Status</string>
+    <string name="part_number">Part %1$d of %2$d</string>
+    <string name="all_shared">All shared</string>
+
+    <!-- Result screen -->
+    <string name="results">Results</string>
+    <string name="save_to_gallery">Save to Gallery</string>
+    <string name="saving">Saving…</string>
+    <string name="done">Done</string>
+    <string name="back_to_home">Back to Home</string>
+
     <!-- Common -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -11,22 +38,28 @@
     <string name="close">Close</string>
     <string name="share">Share</string>
     <string name="delete">Delete</string>
+    <string name="dismiss">Dismiss</string>
     <string name="settings">Settings</string>
-    
+
     <!-- Errors -->
     <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
     <string name="error_network">No internet connection</string>
     <string name="error_download_failed">Failed to download video</string>
     <string name="error_split_failed">Failed to split video</string>
     <string name="error_invalid_url">Invalid Instagram URL</string>
-    
+    <string name="error_whatsapp_not_installed">WhatsApp is not installed</string>
+    <string name="error_share_to_chat_failed">Failed to share to WhatsApp Chat</string>
+    <string name="error_save_failed">Failed to save segments to Gallery</string>
+    <string name="error_unexpected">An unexpected error occurred</string>
+
     <!-- Notifications -->
     <string name="notification_channel_downloads">Downloads</string>
     <string name="notification_channel_processing">Video Processing</string>
     <string name="notification_downloading">Downloading video…</string>
     <string name="notification_processing">Processing video…</string>
     <string name="notification_complete">Video ready to share</string>
-    
+
     <!-- Download Worker Notifications -->
     <string name="notification_download_title">Downloading Video</string>
     <string name="notification_download_progress">Downloading… %1$d%%</string>

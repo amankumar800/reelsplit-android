@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <!-- App-specific external storage -->
+    <!--
+        Cache directory (context.cacheDir):
+        - Downloaded videos land here (via VideoDownloadManager.defaultDownloadDirectory)
+        - Split segments are created in subdirectories here (segments_{videoId}/)
+    -->
+    <cache-path name="cache_videos" path="." />
+
+    <!--
+        App-specific external storage (context.getExternalFilesDir):
+        - Future use: saved/exported videos the user wants to keep
+    -->
     <external-files-path name="videos" path="videos/" />
-    <external-files-path name="downloads" path="downloads/" />
-    <external-files-path name="thumbnails" path="thumbnails/" />
-    
-    <!-- Cache directory -->
-    <cache-path name="cache" path="/" />
-    
-    <!-- Temporary processing directory -->
-    <files-path name="temp" path="temp/" />
+
+    <!--
+        Internal files directory (context.filesDir):
+        - Future use: processing artifacts that should survive cache clears
+    -->
     <files-path name="split" path="split/" />
 </paths>

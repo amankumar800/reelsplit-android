@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Debug-only network security configuration.
+    Allows cleartext (HTTP) traffic to localhost and the Android emulator
+    loopback address (10.0.2.2) for local development and testing.
+
+    This file overrides main/res/xml/network_security_config.xml only in
+    debug builds. Release builds use the production config which blocks
+    all cleartext traffic.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <!-- Allow cleartext for localhost and emulator host during development -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+</network-security-config>
