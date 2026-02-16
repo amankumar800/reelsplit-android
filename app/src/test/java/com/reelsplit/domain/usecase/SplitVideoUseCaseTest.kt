@@ -70,19 +70,19 @@ class SplitVideoUseCaseTest {
     // =========================================================================
 
     @Test
-    fun `blank inputPath returns ProcessingError`() = runTest {
+    fun `blank inputPath returns StorageError`() = runTest {
         val result = useCase(videoId = "video-123", inputPath = "")
         val error = result.getError()
         assertNotNull(error)
-        assertTrue(error is AppError.ProcessingError)
+        assertTrue("Expected StorageError but got $error", error is AppError.StorageError)
     }
 
     @Test
-    fun `whitespace-only inputPath returns ProcessingError`() = runTest {
+    fun `whitespace-only inputPath returns StorageError`() = runTest {
         val result = useCase(videoId = "video-123", inputPath = "   ")
         val error = result.getError()
         assertNotNull(error)
-        assertTrue(error is AppError.ProcessingError)
+        assertTrue("Expected StorageError but got $error", error is AppError.StorageError)
     }
 
     // =========================================================================
