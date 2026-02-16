@@ -214,6 +214,14 @@
 -dontwarn com.google.android.play.core.**
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Security Crypto (EncryptedSharedPreferences / Tink)
+# ──────────────────────────────────────────────────────────────────────────────
+# Tink uses reflection to load crypto primitive implementations
+-keep class com.google.crypto.tink.** { *; }
+-dontwarn com.google.crypto.tink.**
+-keep class androidx.security.crypto.** { *; }
+
+# ──────────────────────────────────────────────────────────────────────────────
 # DataStore Preferences
 # ──────────────────────────────────────────────────────────────────────────────
 -keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
