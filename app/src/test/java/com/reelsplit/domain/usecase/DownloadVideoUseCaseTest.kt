@@ -267,8 +267,7 @@ class DownloadVideoUseCaseTest {
     // =========================================================================
 
     /**
-     * Creates a [WorkInfo] with the given state, progress, and output data.
-     * Uses reflection since WorkInfo constructor is package-private.
+     * Creates a mocked [WorkInfo] with the given state, progress, and output data.
      */
     private fun createWorkInfo(
         state: WorkInfo.State,
