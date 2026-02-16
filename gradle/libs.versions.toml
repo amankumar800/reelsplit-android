@@ -19,6 +19,7 @@ fragment = "1.6.2"
 lifecycle = "2.7.0"
 navigation = "2.7.7"
 splashscreen = "1.0.1"
+browser = "1.7.0"
 
 # Compose
 composeBom = "2024.02.00"
@@ -33,6 +34,7 @@ hiltNavigation = "1.1.0"
 # Data
 room = "2.6.1"
 datastore = "1.1.1"
+securityCrypto = "1.1.0-alpha06"
 paging = "3.2.1"
 
 # Network
@@ -79,6 +81,7 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 
 # Coroutines
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -124,6 +127,9 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+
+# Security
+security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 
 # DataStore
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
