@@ -119,6 +119,7 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.fragment.ktx)
     implementation(libs.splashscreen)
+    implementation(libs.browser)
 
     // Coroutines
     implementation(libs.coroutines.core)
@@ -149,6 +150,9 @@ dependencies {
 
     // DataStore
     implementation(libs.datastore.preferences)
+
+    // Security (Encrypted SharedPreferences)
+    implementation(libs.security.crypto)
 
     // Serialization
     implementation(libs.serialization.json)
