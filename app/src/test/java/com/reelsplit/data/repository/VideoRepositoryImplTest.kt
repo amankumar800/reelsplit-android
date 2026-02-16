@@ -56,9 +56,10 @@ class VideoRepositoryImplTest {
 
         repository = VideoRepositoryImpl(
             videoExtractor = videoExtractor,
-            videoDownloadManager = videoDownloadManager,
+            downloadManager = videoDownloadManager,
             videoSplitter = videoSplitter,
-            videoDao = videoDao
+            videoDao = videoDao,
+            ioDispatcher = testDispatcher
         )
     }
 
@@ -150,13 +151,9 @@ class VideoRepositoryImplTest {
             videoSplitter.splitVideo(
                 inputPath = eq("/input/video.mp4"),
                 outputDir = any(),
-                segmentDurationMs = any(),
                 onProgress = any()
             )
         } returns Ok(splitResult)
-
-        // Also mock DAO insert for segments
-        coEvery { videoDao.upsertVideo(any()) } just Runs
 
         val result = repository.splitVideo(
             videoId = "vid-123",
@@ -184,7 +181,6 @@ class VideoRepositoryImplTest {
             videoSplitter.splitVideo(
                 inputPath = any(),
                 outputDir = any(),
-                segmentDurationMs = any(),
                 onProgress = any()
             )
         } returns Err(error)
@@ -201,11 +197,11 @@ class VideoRepositoryImplTest {
     }
 
     // =========================================================================
-    // Observe Video
+    // Get Video By ID
     // =========================================================================
 
     @Test
-    fun `observeVideo delegates to VideoDao`() = runTest {
+    fun `getVideoById delegates to VideoDao`() = runTest {
         val entity = VideoEntity(
             id = "vid-123",
             sourceUrl = "https://instagram.com/reel/abc",
@@ -213,21 +209,23 @@ class VideoRepositoryImplTest {
         )
         every { videoDao.observeVideoById("vid-123") } returns flowOf(entity)
 
-        videoDao.observeVideoById("vid-123").test {
+        repository.getVideoById("vid-123").test {
             val result = awaitItem()
+            assertNotNull(result)
             assertEquals("vid-123", result?.id)
-            awaitComplete()
+            cancelAndIgnoreRemainingEvents()
         }
+        verify { videoDao.observeVideoById("vid-123") }
     }
 
     @Test
-    fun `observeVideo returns null for non-existent video`() = runTest {
+    fun `getVideoById returns null for non-existent video`() = runTest {
         every { videoDao.observeVideoById("non-existent") } returns flowOf(null)
 
-        videoDao.observeVideoById("non-existent").test {
+        repository.getVideoById("non-existent").test {
             val result = awaitItem()
             assertNull(result)
-            awaitComplete()
+            cancelAndIgnoreRemainingEvents()
         }
     }
 
@@ -239,9 +237,9 @@ class VideoRepositoryImplTest {
     fun `deleteVideo delegates to VideoDao`() = runTest {
         coEvery { videoDao.deleteVideo("vid-123") } returns 1
 
-        val rowsDeleted = videoDao.deleteVideo("vid-123")
+        val result = repository.deleteVideo("vid-123")
 
-        assertEquals(1, rowsDeleted)
+        assertTrue(result is com.github.michaelbull.result.Ok)
         coVerify { videoDao.deleteVideo("vid-123") }
     }
 
@@ -250,11 +248,13 @@ class VideoRepositoryImplTest {
     // =========================================================================
 
     @Test
-    fun `cancelDownload delegates to VideoDownloadManager`() {
+    fun `cancelDownload delegates to VideoDownloadManager`() = runTest {
         every { videoDownloadManager.cancelDownload(any()) } just Runs
 
-        videoDownloadManager.cancelDownload(42)
+        repository.cancelDownload("download-123")
 
-        verify { videoDownloadManager.cancelDownload(42) }
+        // cancelDownload only calls manager if there's an active download mapping;
+        // with no prior download, the manager should NOT be called
+        verify(exactly = 0) { videoDownloadManager.cancelDownload(any()) }
     }
 }
